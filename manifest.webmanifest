@@ -1,0 +1,14 @@
+{
+  "name": "Roadmap CRECI-SP – Assistente Administrativo",
+  "short_name": "Roadmap CRECI",
+  "description": "Plano de estudos de 06/11 a 29/11/2026 com checklist diário.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f2f3f8",
+  "theme_color": "#171a33",
+  "lang": "pt-BR",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

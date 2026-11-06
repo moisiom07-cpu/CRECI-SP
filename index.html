@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roadmap CRECI-SP – Assistente Administrativo</title>
+<meta name="description" content="Plano de estudos de 06/11 a 29/11/2026 para o concurso CRECI-SP, com checklist diário que funciona offline.">
+<meta name="theme-color" content="#171a33">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<style>
+  :root {
+    --paper: #f2f3f8;
+    --card: #ffffff;
+    --ink: #171a33;
+    --muted: #596080;
+    --rule: #cfd3e6;
+    --print: #4a63c9;
+    --alert: #d1393a;
+    --wash: #e8ebf7;
+    --font: "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #11132a;
+      --card: #1a1d3a;
+      --ink: #eef0fc;
+      --muted: #a0a6ca;
+      --rule: #343863;
+      --print: #8aa0ff;
+      --alert: #ff6f6d;
+      --wash: #222648;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #11132a;
+    --card: #1a1d3a;
+    --ink: #eef0fc;
+    --muted: #a0a6ca;
+    --rule: #343863;
+    --print: #8aa0ff;
+    --alert: #ff6f6d;
+    --wash: #222648;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 12px; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.5;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 20px 16px 56px; }
+
+  /* Hero */
+  .hero { padding: 8px 0 20px; }
+  .hero h1 { margin: 0 0 18px; font-size: 1rem; font-weight: 600; color: var(--muted); letter-spacing: 0.01em; }
+  .count { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .count .n {
+    font-size: clamp(5.5rem, 26vw, 9rem);
+    font-weight: 800;
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+  }
+  .count .l { font-size: 1.25rem; font-weight: 700; line-height: 1.2; }
+  .count .l span { display: block; font-size: 0.95rem; font-weight: 500; color: var(--muted); }
+  .count.single .n { display: none; }
+  .count.single .l { font-size: 2rem; }
+
+  /* Cartão-resposta */
+  .sheet {
+    margin-top: 22px;
+    padding: 14px 14px 12px;
+    background: var(--card);
+    border: 1.5px solid var(--print);
+    border-radius: 10px;
+  }
+  .sheet p { margin: 0 0 10px; font-size: 0.85rem; color: var(--muted); }
+  .strip { display: flex; flex-wrap: wrap; gap: 8px; }
+  .dot {
+    width: 24px; height: 24px; padding: 0;
+    border: 2px solid var(--print);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color .15s ease;
+  }
+  .dot.done { background: var(--ink); border-color: var(--ink); }
+  .dot.today { box-shadow: 0 0 0 3px var(--card), 0 0 0 5px var(--alert); }
+  .dot.exam { border-color: var(--alert); border-width: 3px; }
+  .dot.exam.done { background: var(--alert); }
+
+  .meter { margin-top: 14px; }
+  .meter-top { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; }
+  .bar { height: 8px; margin-top: 6px; background: var(--wash); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--ink); border-radius: 4px; transition: width .3s ease; }
+
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  button.btn {
+    font: inherit; font-weight: 600; font-size: 0.95rem;
+    padding: 10px 16px; min-height: 44px;
+    border-radius: 8px; border: 1.5px solid var(--ink);
+    background: var(--ink); color: var(--paper); cursor: pointer;
+  }
+  button.btn.ghost { background: transparent; color: var(--ink); }
+
+  .notice {
+    margin: 4px 0 28px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--alert);
+    background: var(--card);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.92rem;
+  }
+  .notice b { font-weight: 700; }
+
+  /* Fases */
+  section.phase { margin-top: 30px; }
+  .phase-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--ink); }
+  .phase-head h2 { margin: 0; font-size: 1.2rem; font-weight: 800; line-height: 1.25; }
+  .phase-head .cnt { font-size: 0.9rem; font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .phase-sub { margin: 6px 0 4px; color: var(--muted); font-size: 0.92rem; }
+
+  .row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 14px;
+    row-gap: 0;
+    align-items: start;
+    padding: 12px 6px;
+    border-bottom: 1px solid var(--rule);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .row .date { grid-column: 2; font-weight: 700; font-size: 0.95rem; }
+  .row .task { grid-column: 2; }
+  .row input[type=checkbox] { grid-column: 1; grid-row: 1 / span 2; margin-top: 2px; }
+  .row.today { background: var(--wash); border-bottom-color: var(--alert); }
+  .row.exam .date, .row.exam .task { color: var(--alert); font-weight: 700; }
+  .row.done .task { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+  .tag { margin-left: 8px; padding: 1px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; vertical-align: 1px; }
+  .tag.hoje { background: var(--alert); color: #fff; }
+  .tag.pend { border: 1px solid var(--muted); color: var(--muted); }
+  .tag:empty { display: none; }
+
+  @media (min-width: 560px) {
+    .row { grid-template-columns: auto 8.5rem 1fr; }
+    .row input[type=checkbox] { grid-row: 1; }
+    .row .date { grid-column: 2; }
+    .row .task { grid-column: 3; }
+  }
+
+  /* Bolha de cartão-resposta */
+  input[type=checkbox] {
+    -webkit-appearance: none; appearance: none;
+    flex: none;
+    width: 26px; height: 26px; margin: 0;
+    border: 2px solid var(--print);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color .12s ease, transform .12s ease;
+  }
+  input[type=checkbox]:checked { background: var(--ink); border-color: var(--ink); transform: scale(1.06); }
+  input[type=checkbox]:focus-visible, .dot:focus-visible, button.btn:focus-visible, input[type=number]:focus-visible, input[type=text]:focus-visible {
+    outline: 3px solid var(--alert); outline-offset: 2px;
+  }
+  .row.exam input[type=checkbox]:checked { background: var(--alert); border-color: var(--alert); }
+
+  /* Blocos extras */
+  .block { margin-top: 34px; }
+  .block h2 { margin: 0 0 4px; font-size: 1.2rem; font-weight: 800; }
+  .block > p { margin: 0 0 10px; color: var(--muted); font-size: 0.92rem; }
+  .check { display: flex; align-items: center; gap: 14px; padding: 11px 6px; border-bottom: 1px solid var(--rule); cursor: pointer; }
+
+  .sim { display: grid; grid-template-columns: 1fr; gap: 10px; }
+  .sim-item { background: var(--card); border-radius: 10px; padding: 12px 14px; border: 1px solid var(--rule); }
+  .sim-item h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; display: flex; justify-content: space-between; gap: 8px; }
+  .sim-item h3 span { color: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .fields { display: grid; grid-template-columns: 7.5rem 1fr; gap: 10px; }
+  .fields label { display: block; font-size: 0.8rem; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
+  input[type=number], input[type=text] {
+    width: 100%; min-height: 44px; padding: 8px 10px;
+    font: inherit; color: var(--ink);
+    background: var(--paper); border: 1.5px solid var(--rule); border-radius: 8px;
+  }
+  .pct { margin-top: 8px; font-size: 0.85rem; color: var(--muted); min-height: 1.3em; }
+
+  footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--muted); }
+  footer p { margin: 0 0 10px; }
+  .link { background: none; border: 0; padding: 8px 0; min-height: 44px; font: inherit; font-size: 0.85rem; color: var(--muted); text-decoration: underline; cursor: pointer; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+  @media print {
+    .actions, .strip, footer .link { display: none; }
+    body { background: #fff; color: #000; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <h1>CRECI-SP, Assistente Administrativo</h1>
+    <div class="count" id="count" aria-live="polite">
+      <div class="n" id="countN">0</div>
+      <div class="l" id="countL">dias para a prova<span>Domingo, 29/11/2026</span></div>
+    </div>
+
+    <div class="sheet">
+      <p>Cada bolha é um dia do plano. Marque a tarefa e a bolha é preenchida.</p>
+      <div class="strip" id="strip" role="list"></div>
+      <div class="meter">
+        <div class="meter-top"><span id="meterText">0 de 24 etapas</span><span id="meterPct">0%</span></div>
+        <div class="bar"><i id="meterBar"></i></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" id="goToday" type="button">Ir para hoje</button>
+      <button class="btn ghost" id="themeBtn" type="button">Alternar tema</button>
+    </div>
+  </header>
+
+  <div class="notice">
+    <b>Prova objetiva em 29/11/2026 (domingo).</b> 50 questões objetivas e 2 questões discursivas de Conhecimentos Específicos, no mesmo dia. Banca: Avança SP. Confirme data, horário e local no edital e no cartão de confirmação.
+  </div>
+
+  <div id="phases"></div>
+
+  <section class="block" aria-labelledby="rt">
+    <h2 id="rt">Rotina de hoje</h2>
+    <p>60% teoria ou questões novas, 30% questões e revisão, 10% caderno de erros. Reinicia a cada dia.</p>
+    <label class="check"><input type="checkbox" data-k="routine" data-id="0"><span>Cumpri a meta do dia</span></label>
+    <label class="check"><input type="checkbox" data-k="routine" data-id="1"><span>Registrei meus erros no caderno de erros</span></label>
+    <label class="check"><input type="checkbox" data-k="routine" data-id="2"><span>Dormi bem e me alimentei direito</span></label>
+  </section>
+
+  <section class="block" aria-labelledby="pl">
+    <h2 id="pl">Placar dos simulados</h2>
+    <p>Anote quantas questões acertou de 50 e qual matéria foi a mais fraca.</p>
+    <div class="sim" id="sim"></div>
+  </section>
+
+  <section class="block" aria-labelledby="ev">
+    <h2 id="ev">Véspera e dia da prova</h2>
+    <p>Confira tudo no sábado, 28/11.</p>
+    <label class="check"><input type="checkbox" data-k="eve" data-id="0"><span>Documento oficial com foto (original)</span></label>
+    <label class="check"><input type="checkbox" data-k="eve" data-id="1"><span>Caneta esferográfica preta, com uma reserva</span></label>
+    <label class="check"><input type="checkbox" data-k="eve" data-id="2"><span>Local, horário e trajeto conferidos</span></label>
+    <label class="check"><input type="checkbox" data-k="eve" data-id="3"><span>Água e lanche leve na mochila</span></label>
+    <label class="check"><input type="checkbox" data-k="eve" data-id="4"><span>Dormi cedo na véspera</span></label>
+  </section>
+
+  <footer>
+    <p>Perdeu um dia? Não tente recuperar. Corte o tópico menos importante e siga o plano.</p>
+    <p>Seu progresso fica salvo neste aparelho e neste navegador. Nada é enviado para a internet.</p>
+    <button class="link" id="reset" type="button">Zerar todo o progresso</button>
+  </footer>
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  var EXAM = '2026-11-29';
+  var KEY = 'creci-sp-roadmap-v1';
+
+  var PHASES = [
+    { n: 'Fase 1: fechar a teoria', s: '06/11 a 12/11. Específicos e Português primeiro.' },
+    { n: 'Fase 2: questões e resumos', s: '13/11 a 19/11. Praticar, errar e anotar no caderno de erros.' },
+    { n: 'Fase 3: simulados', s: '20/11 a 26/11. 50 questões cronometradas e revisão dos erros.' },
+    { n: 'Fase 4: reta final', s: '27/11 a 29/11. Revisar, descansar e cuidar da logística.' }
+  ];
+
+  var DAYS = [
+    { d: '2026-11-06', w: 'Sex', p: 0, t: 'Baixar o edital, listar os tópicos por matéria e marcar o que você já domina. Começar Específicos.' },
+    { d: '2026-11-07', w: 'Sáb', p: 0, t: 'Específicos: aulas e questões de fixação.' },
+    { d: '2026-11-08', w: 'Dom', p: 0, t: 'Português: aulas dos tópicos principais.' },
+    { d: '2026-11-09', w: 'Seg', p: 0, t: 'Específicos: continuar as aulas, com foco no que cai na discursiva.' },
+    { d: '2026-11-10', w: 'Ter', p: 0, t: 'Português: continuar as aulas e fazer questões.' },
+    { d: '2026-11-11', w: 'Qua', p: 0, t: 'Matemática e Raciocínio Lógico: só os tópicos mais cobrados (aulas em 1,5x).' },
+    { d: '2026-11-12', w: 'Qui', p: 0, t: 'Informática: só os tópicos mais cobrados (aulas em 1,5x).' },
+
+    { d: '2026-11-13', w: 'Sex', p: 1, t: 'Questões de Específicos e caderno de erros.' },
+    { d: '2026-11-14', w: 'Sáb', p: 1, t: 'Questões de Português e resumo de 1 página.' },
+    { d: '2026-11-15', w: 'Dom', p: 1, t: 'Questões de Matemática/RL e Informática, com resumo de 1 página de cada.' },
+    { d: '2026-11-16', w: 'Seg', p: 1, t: 'Questões de Específicos. Escrever 1 discursiva e conferir com o material.' },
+    { d: '2026-11-17', w: 'Ter', p: 1, t: 'Questões de Português e revisão dos erros do caderno.' },
+    { d: '2026-11-18', w: 'Qua', p: 1, t: 'Questões de Matemática e Raciocínio Lógico.' },
+    { d: '2026-11-19', w: 'Qui', p: 1, t: 'Questões de Informática. Os locais de prova são divulgados hoje: confira o seu.' },
+
+    { d: '2026-11-20', w: 'Sex', p: 2, t: 'Simulado 1: 50 questões, cronometrado.' },
+    { d: '2026-11-21', w: 'Sáb', p: 2, t: 'Revisar os erros do simulado 1 e treinar discursiva, com tempo e à mão.' },
+    { d: '2026-11-22', w: 'Dom', p: 2, t: 'Simulado 2.' },
+    { d: '2026-11-23', w: 'Seg', p: 2, t: 'Revisar os erros e reforçar a matéria mais fraca.' },
+    { d: '2026-11-24', w: 'Ter', p: 2, t: 'Simulado 3 e treino de discursiva.' },
+    { d: '2026-11-25', w: 'Qua', p: 2, t: 'Revisar os erros do simulado 3 e atualizar os resumos.' },
+    { d: '2026-11-26', w: 'Qui', p: 2, t: 'Simulado 4.' },
+
+    { d: '2026-11-27', w: 'Sex', p: 3, t: 'Revisar os erros do simulado 4, o caderno de erros e os resumos. Sem matéria nova.' },
+    { d: '2026-11-28', w: 'Sáb', p: 3, t: 'Revisão leve. Separar documento e caneta preta, conferir o trajeto e dormir cedo.' },
+    { d: '2026-11-29', w: 'Dom', p: 3, t: 'Dia da prova. Chegue com antecedência. Você consegue!', exam: true }
+  ];
+
+  var SIMS = [
+    { n: 1, d: '20/11' }, { n: 2, d: '22/11' }, { n: 3, d: '24/11' }, { n: 4, d: '26/11' }
+  ];
+
+  /* ---------- utilitários ---------- */
+  function $(id) { return document.getElementById(id); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function iso(dt) { return dt.getFullYear() + '-' + pad(dt.getMonth() + 1) + '-' + pad(dt.getDate()); }
+  function utc(s) { var a = s.split('-'); return Date.UTC(+a[0], +a[1] - 1, +a[2]); }
+  function br(s) { var a = s.split('-'); return a[2] + '/' + a[1]; }
+  function reduced() { return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  var TODAY = iso(new Date());
+
+  /* ---------- estado salvo ---------- */
+  var mem = null;
+  function fresh() { return { done: {}, routine: {}, sim: {}, eve: {}, theme: '' }; }
+  function load() {
+    var s = null;
+    try { var raw = localStorage.getItem(KEY); if (raw) s = JSON.parse(raw); } catch (e) { s = mem; }
+    s = s || fresh();
+    s.done = s.done || {}; s.routine = s.routine || {}; s.sim = s.sim || {}; s.eve = s.eve || {};
+    return s;
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { mem = state; }
+  }
+  var state = load();
+
+  /* ---------- construção da página ---------- */
+  function build() {
+    // fases e dias
+    var html = '';
+    PHASES.forEach(function (ph, pi) {
+      html += '<section class="phase"><div class="phase-head"><h2>' + ph.n + '</h2><span class="cnt" data-pc="' + pi + '"></span></div>' +
+              '<p class="phase-sub">' + ph.s + '</p>';
+      DAYS.forEach(function (day, i) {
+        if (day.p !== pi) return;
+        html += '<label class="row' + (day.exam ? ' exam' : '') + '" id="r' + i + '">' +
+                '<input type="checkbox" data-k="done" data-id="' + i + '">' +
+                '<span class="date">' + day.w + ' ' + br(day.d) + '<span class="tag"></span></span>' +
+                '<span class="task">' + day.t + '</span></label>';
+      });
+      html += '</section>';
+    });
+    $('phases').innerHTML = html;
+
+    // tira de bolhas
+    var strip = '';
+    DAYS.forEach(function (day, i) {
+      strip += '<button type="button" class="dot' + (day.exam ? ' exam' : '') + '" data-go="' + i + '" role="listitem" aria-label="' + day.w + ' ' + br(day.d) + '"></button>';
+    });
+    $('strip').innerHTML = strip;
+
+    // simulados
+    var sim = '';
+    SIMS.forEach(function (s) {
+      sim += '<div class="sim-item"><h3>Simulado ' + s.n + '<span>' + s.d + '</span></h3>' +
+             '<div class="fields"><div><label for="a' + s.n + '">Acertos</label>' +
+             '<input type="number" id="a' + s.n + '" min="0" max="50" inputmode="numeric" placeholder="0 a 50" data-sim="' + s.n + '" data-f="a"></div>' +
+             '<div><label for="f' + s.n + '">Matéria mais fraca</label>' +
+             '<input type="text" id="f' + s.n + '" data-sim="' + s.n + '" data-f="f" autocomplete="off"></div></div>' +
+             '<div class="pct" id="p' + s.n + '"></div></div>';
+    });
+    $('sim').innerHTML = sim;
+  }
+
+  /* ---------- sincroniza a tela com o estado ---------- */
+  function applyTheme() {
+    var root = document.documentElement;
+    if (state.theme === 'dark' || state.theme === 'light') root.setAttribute('data-theme', state.theme);
+    else root.removeAttribute('data-theme');
+  }
+
+  function sync() {
+    applyTheme();
+
+    var boxes = document.querySelectorAll('input[type=checkbox][data-k]');
+    var todayRoutine = state.routine[TODAY] || [];
+    Array.prototype.forEach.call(boxes, function (b) {
+      var k = b.getAttribute('data-k'), id = +b.getAttribute('data-id');
+      if (k === 'done') b.checked = !!state.done[id];
+      else if (k === 'routine') b.checked = !!todayRoutine[id];
+      else if (k === 'eve') b.checked = !!state.eve[id];
+    });
+
+    SIMS.forEach(function (s) {
+      var v = state.sim[s.n] || {};
+      $('a' + s.n).value = v.a == null ? '' : v.a;
+      $('f' + s.n).value = v.f || '';
+      pct(s.n);
+    });
+
+    paint();
+  }
+
+  function pct(n) {
+    var v = state.sim[n] || {};
+    var el = $('p' + n);
+    var a = parseInt(v.a, 10);
+    el.textContent = (isNaN(a) || a < 0 || a > 50) ? '' : a + ' de 50, ' + Math.round(a / 50 * 100) + '% de acerto';
+  }
+
+  function paint() {
+    var total = DAYS.length, done = 0;
+    var phaseDone = [0, 0, 0, 0], phaseTotal = [0, 0, 0, 0];
+
+    DAYS.forEach(function (day, i) {
+      var isDone = !!state.done[i];
+      if (isDone) done++;
+      phaseTotal[day.p]++; if (isDone) phaseDone[day.p]++;
+
+      var row = $('r' + i);
+      var tag = row.querySelector('.tag');
+      var isToday = day.d === TODAY;
+      var late = day.d < TODAY && !isDone;
+      row.classList.toggle('done', isDone);
+      row.classList.toggle('today', isToday);
+      tag.className = 'tag' + (isToday ? ' hoje' : (late ? ' pend' : ''));
+      tag.textContent = isToday ? 'Hoje' : (late ? 'Pendente' : '');
+
+      var dot = document.querySelector('.dot[data-go="' + i + '"]');
+      dot.classList.toggle('done', isDone);
+      dot.classList.toggle('today', isToday);
+      dot.title = day.w + ' ' + br(day.d) + (isDone ? ' (feito)' : '');
+    });
+
+    PHASES.forEach(function (_, pi) {
+      document.querySelector('[data-pc="' + pi + '"]').textContent = phaseDone[pi] + ' de ' + phaseTotal[pi];
+    });
+
+    var p = Math.round(done / total * 100);
+    $('meterText').textContent = done + ' de ' + total + ' etapas';
+    $('meterPct').textContent = p + '%';
+    $('meterBar').style.width = p + '%';
+
+    countdown();
+  }
+
+  function countdown() {
+    var diff = Math.round((utc(EXAM) - utc(TODAY)) / 864e5);
+    var box = $('count'), n = $('countN'), l = $('countL');
+    box.classList.remove('single');
+    if (diff > 1) {
+      n.textContent = diff;
+      l.innerHTML = 'dias para a prova<span>Domingo, 29/11/2026</span>';
+    } else if (diff === 1) {
+      n.textContent = '1';
+      l.innerHTML = 'dia para a prova<span>Amanhã, domingo 29/11/2026</span>';
+    } else if (diff === 0) {
+      box.classList.add('single');
+      l.innerHTML = 'A prova é hoje.<span>Boa sorte! Respire e confie no que você estudou.</span>';
+    } else {
+      box.classList.add('single');
+      l.innerHTML = 'A prova já passou.<span>Parabéns por ter chegado até aqui.</span>';
+    }
+  }
+
+  function goToday() {
+    var idx = -1, i;
+    for (i = 0; i < DAYS.length; i++) { if (DAYS[i].d === TODAY) { idx = i; break; } }
+    if (idx < 0) idx = TODAY < DAYS[0].d ? 0 : DAYS.length - 1;
+    var row = $('r' + idx);
+    row.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'center' });
+  }
+
+  /* ---------- eventos ---------- */
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (!t || t.type !== 'checkbox') return;
+    var k = t.getAttribute('data-k'), id = +t.getAttribute('data-id');
+    if (k === 'done') { if (t.checked) state.done[id] = true; else delete state.done[id]; }
+    else if (k === 'routine') {
+      var r = state.routine[TODAY] || [false, false, false];
+      r[id] = t.checked; state.routine[TODAY] = r;
+    } else if (k === 'eve') { if (t.checked) state.eve[id] = true; else delete state.eve[id]; }
+    save(); paint();
+  });
+
+  document.addEventListener('input', function (e) {
+    var t = e.target, n = t && t.getAttribute && t.getAttribute('data-sim');
+    if (!n) return;
+    var f = t.getAttribute('data-f');
+    state.sim[n] = state.sim[n] || {};
+    state.sim[n][f] = t.value;
+    save(); pct(n);
+  });
+
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var dot = t && t.closest ? t.closest('.dot') : null;
+    if (dot) {
+      var row = $('r' + dot.getAttribute('data-go'));
+      row.scrollIntoView({ behavior: reduced() ? 'auto' : 'smooth', block: 'center' });
+    }
+  });
+
+  $('goToday').addEventListener('click', goToday);
+
+  $('themeBtn').addEventListener('click', function () {
+    var dark = document.documentElement.getAttribute('data-theme') === 'dark' ||
+      (!document.documentElement.getAttribute('data-theme') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    state.theme = dark ? 'light' : 'dark';
+    save(); applyTheme();
+  });
+
+  $('reset').addEventListener('click', function () {
+    if (window.confirm('Apagar todo o progresso, o placar dos simulados e as marcações? Isso não pode ser desfeito.')) {
+      var theme = state.theme;
+      state = fresh(); state.theme = theme;
+      save(); sync();
+    }
+  });
+
+  /* ---------- início ---------- */
+  build();
+  sync();
+
+  // modo offline instalável (só funciona quando hospedado em https, como no GitHub Pages)
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+})();
+</script>
+</body>
+</html>
